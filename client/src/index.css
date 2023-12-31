@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;0,800;1,400;1,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.leaflet-container {
+  height: 100vh;
+}
+
+body::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  border: 2px solid transparent;
+  cursor: grab;
+}
+
+body::-webkit-scrollbar-track {
+  border-radius: 30px;
+  background-color: #f8f8f8;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #282727f0;
+  border-radius: 30px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  border: 2px solid transparent;
+  cursor: grab;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  border-radius: 30px;
+  background-color: #f8f8f8;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #a0591ff0;
+  border-radius: 30px;
+}
