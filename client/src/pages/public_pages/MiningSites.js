@@ -1,10 +1,10 @@
-import Nav from "../components/nav";
-import MinerCard from "../components/minercard";
+import Nav from "../../components/nav";
+import MinerCard from "../../components/minercard";
 import { IoSearch } from "react-icons/io5";
 import { useState, useEffect } from "react";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import { getDocs, collection } from "firebase/firestore";
-import LoadingScreen from "../components/loadingScreen";
+import LoadingScreen from "../../components/loadingScreen";
 
 const MiningSites = () => {
   const [miners, setMiners] = useState(null);

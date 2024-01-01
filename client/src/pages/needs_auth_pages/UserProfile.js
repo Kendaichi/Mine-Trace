@@ -1,26 +1,25 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { signOut } from "firebase/auth";
-import { auth, storage } from "../config/firebase";
-import { db } from "../config/firebase";
+import { auth, storage } from "../../config/firebase";
+import { db } from "../../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { UserContext } from "../../context/userContext";
+import { AuthContext } from "../../context/authContext";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { FiEdit } from "react-icons/fi";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa6";
 
-import UserAbout from "../components/userabout";
-import UserCompliance from "../components/compliance/usercompliance";
-import UserCertificates from "../components/certificates/usercertificates";
-import UserMineSite from "../components/userminesite";
-import UserProduction from "../components/production/userproduction";
-import { UserContext } from "../context/userContext";
-import { AuthContext } from "../context/authContext";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import LoadingScreen from "../components/loadingScreen";
-
-import UserProfileNotFound from "./ProfileNotFound";
+import LoadingScreen from "../../components/loadingScreen";
+import UserAbout from "./profile_sub_pages/userabout";
+import UserCompliance from "./profile_sub_pages/compliance/usercompliance";
+import UserCertificates from "./profile_sub_pages/certificates/usercertificates";
+import UserMineSite from "./profile_sub_pages/userminesite";
+import UserProduction from "./profile_sub_pages/production/userproduction";
+import UserProfileNotFound from "../ProfileNotFound";
 
 export default function UserProfile() {
   const navigate = useNavigate();

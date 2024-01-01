@@ -1,18 +1,19 @@
 import { useContext, useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { UserContext } from "../../context/userContext";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../../context/userContext";
 import { GiWarPick } from "react-icons/gi";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { db, storage } from "../../config/firebase";
+import { db, storage } from "../../../../config/firebase";
 
 import { MdDescription, MdOutlineTitle } from "react-icons/md";
 import { FaRegImage } from "react-icons/fa";
 import { HiDocumentText } from "react-icons/hi2";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-export default function ComplianceDetails() {
+export default function CertificateDetails() {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -51,13 +52,13 @@ export default function ComplianceDetails() {
     setDescription(event.target.value);
   };
 
-  const fetchSpecificCompliance = async () => {
+  const fetchSpecificCertificate = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
     const uid = user?.uid;
 
     if (uid) {
-      const docRef = doc(db, "users", uid, "compliances", id);
+      const docRef = doc(db, "users", uid, "certificates", id);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -89,7 +90,7 @@ export default function ComplianceDetails() {
     const uid = user?.uid;
     if (uid) {
       const downloadUrl = await uploadFile();
-      const docRef = doc(db, "users", uid, "compliances", id);
+      const docRef = doc(db, "users", uid, "certificates", id);
       await updateDoc(docRef, {
         documentURL: downloadUrl,
       });
@@ -108,7 +109,7 @@ export default function ComplianceDetails() {
       const fileObj = file;
       const fileFirestore = ref(
         storage,
-        `userDocuments/${userData.email}/userCompliances/${id}`
+        `userDocuments/${userData.email}/userCertificates/${id}`
       );
       await uploadBytes(fileFirestore, fileObj.file, {
         contentType: fileObj.file.type,
@@ -127,7 +128,7 @@ export default function ComplianceDetails() {
     const user = auth.currentUser;
     const uid = user?.uid;
     if (uid) {
-      const docRef = doc(db, "users", uid, "compliances", id);
+      const docRef = doc(db, "users", uid, "certificates", id);
       await updateDoc(docRef, {
         documentTitle: title,
         documentDescription: description,
@@ -141,7 +142,7 @@ export default function ComplianceDetails() {
   };
 
   useEffect(() => {
-    fetchSpecificCompliance();
+    fetchSpecificCertificate();
     // eslint-disable-next-line
   }, []);
 

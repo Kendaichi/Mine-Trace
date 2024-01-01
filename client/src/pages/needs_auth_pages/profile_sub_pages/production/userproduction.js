@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Web3 from "web3";
 import { Bar } from "react-chartjs-2";
-import ProductionStorage from "../../contracts/ProductionStorage.json";
+import ProductionStorage from "../../../../contracts/ProductionStorage.json";
 import ProductionDetails from "./details";
+import { UserContext } from "../../../../context/userContext";
 
 export default function UserProduction() {
   const [editing, setEditing] = useState(false);
@@ -13,6 +14,8 @@ export default function UserProduction() {
   const [groups, setGroups] = useState([{ name: "", oreAmount: "" }]);
   const [month, setMonth] = useState("");
   const [productions, setProductions] = useState(null);
+
+  const { userData } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -155,7 +158,13 @@ export default function UserProduction() {
 
       // Call the addProduction function on the smart contract
       const receipt = await contractInstance.methods
-        .addProduction(totalOreAmount.toString(), month, "2023", minedPerGroup)
+        .addProduction(
+          userData.email,
+          totalOreAmount.toString(),
+          month,
+          "2023",
+          minedPerGroup
+        )
         .send({
           from: account,
         });

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { updateDoc, doc, getDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../../config/firebase";
 import { getAuth } from "firebase/auth";
 
 export default function UserAbout() {

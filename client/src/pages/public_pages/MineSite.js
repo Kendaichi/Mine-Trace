@@ -5,13 +5,13 @@ import { Icon } from "leaflet";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import LoadingScreen from "../components/loadingScreen";
+import LoadingScreen from "../../components/loadingScreen";
 
 const MineSite = () => {
   const markerIcon = new Icon({
-    iconUrl: require("../assets/locationMarker.png"),
+    iconUrl: require("../../assets/locationMarker.png"),
     iconSize: [38, 38],
     iconAnchor: [17, 30],
   });

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import LoadingScreen from "../components/loadingScreen";
+import LoadingScreen from "../../components/loadingScreen";
 import { FaUser } from "react-icons/fa6";
 
 const CompanyProfile = () => {

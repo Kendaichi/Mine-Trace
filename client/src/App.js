@@ -1,25 +1,24 @@
-import Home from "./pages/Home";
-import LogIn from "./pages/Log-in";
-import CompanyProfile from "./pages/CompanyProfile";
-import Compliance from "./pages/Compliance";
-import Production from "./pages/Production";
-import Certificates from "./pages/Certificates";
-import MineSite from "./pages/MineSite";
-import More from "./pages/More";
-import LoadingScreen from "./components/loadingScreen";
-import UserProfile from "./pages/UserProfile";
-import NotFound from "./pages/NotFound";
-import MiningSites from "./pages/MiningSites";
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-
 import { AuthContext } from "./context/authContext";
 import { UserContext } from "./context/userContext";
-
 import { db } from "./config/firebase";
 import { getDoc, doc } from "firebase/firestore";
+
+import UserProfile from "./pages/needs_auth_pages/UserProfile";
+import Home from "./pages/public_pages/Home";
+import LoadingScreen from "./components/loadingScreen";
+import LogIn from "./pages/Log-in";
+import CompanyProfile from "./pages/public_pages/CompanyProfile";
+import Compliance from "./pages/public_pages/Compliance";
+import Production from "./pages/public_pages/Production";
+import Certificates from "./pages/public_pages/Certificates";
+import MineSite from "./pages/public_pages/MineSite";
+import MiningSites from "./pages/public_pages/MiningSites";
+import More from "./pages/public_pages/More";
+import NotFound from "./pages/NotFound";
+import About from "./pages/public_pages/About";
 
 function App() {
   const location = useLocation();
@@ -102,6 +101,7 @@ function App() {
           <Route path="/company-minesite/:id" element={<MineSite />} />
           <Route path="/miningsites" element={<MiningSites />} />
           <Route path="/more/:id" element={<More />} />
+          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserContext.Provider>

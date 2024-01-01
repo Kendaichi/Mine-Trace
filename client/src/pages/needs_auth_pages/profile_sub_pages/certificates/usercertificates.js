@@ -1,18 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { ref, deleteObject } from "firebase/storage";
-import { db, storage } from "../../config/firebase";
-import { UserContext } from "../../context/userContext";
+import { db, storage } from "../../../../config/firebase";
+import { UserContext } from "../../../../context/userContext";
 import { getAuth } from "firebase/auth";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import AddCompliance from "./addcompliance";
-import ComplianceDetails from "./compliancedetails";
-import { GiWarPick } from "react-icons/gi";
 
-export default function UserCompliance() {
+import { GiWarPick } from "react-icons/gi";
+import AddCertificate from "./addcertificate";
+import CertificateDetails from "./certificatedetails";
+
+export default function UserCertificates() {
   const { userData } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -21,29 +22,29 @@ export default function UserCompliance() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchCompliances = async () => {
+  const fetchCertificates = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
     const uid = user?.uid;
 
     if (uid) {
-      const compliancesColRef = collection(db, "users", uid, "compliances");
+      const compliancesColRef = collection(db, "users", uid, "certificates");
       const querySnapshot = await getDocs(compliancesColRef);
-      const compliances = querySnapshot.docs.map((doc) => ({
+      const certificates = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
 
-      // console.log(compliances);
+      // console.log(certificates);
 
-      const transformedCompliances = compliances.map((compliance) => ({
+      const transformedCertificates = certificates.map((compliance) => ({
         description: compliance.documentDescription,
         title: compliance.documentTitle,
         url: compliance.documentURL,
         id: compliance.documentID,
       }));
 
-      setFiles(transformedCompliances);
+      setFiles(transformedCertificates);
       // console.log(files);
     } else {
       console.log("No user is logged in.");
@@ -58,10 +59,10 @@ export default function UserCompliance() {
       const user = auth.currentUser;
       const uid = user?.uid;
       if (uid) {
-        const docRef = doc(db, "users", uid, "compliances", id);
+        const docRef = doc(db, "users", uid, "certificates", id);
         const imgRef = ref(
           storage,
-          `userDocuments/${userData.email}/userCompliances/${id}`
+          `userDocuments/${userData.email}/userCertificates/${id}`
         );
 
         deleteObject(imgRef);
@@ -69,7 +70,7 @@ export default function UserCompliance() {
 
         alert("Succesfully Deleted");
         setIsLoading(false);
-        fetchCompliances();
+        fetchCertificates();
       } else {
         console.log("No logged in user");
       }
@@ -79,7 +80,7 @@ export default function UserCompliance() {
   };
 
   useEffect(() => {
-    fetchCompliances();
+    fetchCertificates();
   }, []);
 
   return (
@@ -100,18 +101,21 @@ export default function UserCompliance() {
       ) : null}
 
       {/* End Loading Screen */}
-      <div className="text-2xl font-bold">Compliance</div>
+      <div className="text-2xl font-bold">Certificates</div>
 
       <button
         className="place-self-end px-2 bg-gray-400 shadow-slate-300 text-white rounded"
-        onClick={() => navigate("compliance-add")}
+        onClick={() => navigate("certificate-add")}
       >
-        Add Compliance
+        Add Certificates
       </button>
 
       <Routes>
-        <Route path="/compliance-add" element={<AddCompliance />} />
-        <Route path="/compliance-details/:id" element={<ComplianceDetails />} />
+        <Route path="/certificate-add" element={<AddCertificate />} />
+        <Route
+          path="/certificate-details/:id"
+          element={<CertificateDetails />}
+        />
       </Routes>
 
       <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -153,7 +157,7 @@ export default function UserCompliance() {
                   </th>
                   <td className="px-1 py-4">
                     <button
-                      onClick={() => navigate(`compliance-details/${file.id}`)}
+                      onClick={() => navigate(`certificate-details/${file.id}`)}
                     >
                       <FaEdit size={25} color="blue" />
                     </button>

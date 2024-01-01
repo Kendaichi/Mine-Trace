@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import blockchainPic from "../assets/blockchain.jpeg";
-import transparency from "../assets/transparency.jpg";
+import blockchainPic from "../../assets/blockchain.jpeg";
+import transparency from "../../assets/transparency.jpg";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 const More = () => {

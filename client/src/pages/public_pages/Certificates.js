@@ -1,29 +1,29 @@
-import CarouselCompliance from "../components/carousel";
+import CarouselCompliance from "../../components/carousel";
 
-import { useNavigate, useParams } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../config/firebase";
 import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import LoadingScreen from "../components/loadingScreen";
+import LoadingScreen from "../../components/loadingScreen";
 
-const Compliance = () => {
-  const navigate = useNavigate();
+const Certificates = () => {
   const { id } = useParams();
-  const [compliance, setCompliances] = useState(null);
+  const [certificates, setCertificates] = useState(null);
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   async function getCompliances() {
-    const complianceRef = collection(db, "users", id, "compliances");
-    const compliancesSnapshot = await getDocs(complianceRef);
+    const certificatesRef = collection(db, "users", id, "certificates");
+    const certificatesSnapshot = await getDocs(certificatesRef);
 
-    if (!compliancesSnapshot.empty) {
-      const compliances = compliancesSnapshot.docs.map((doc) => ({
+    if (!certificatesSnapshot.empty) {
+      const compliances = certificatesSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-
-      setCompliances(compliances);
+      // console.log(compliances);
+      setCertificates(compliances);
       setIsLoading(false);
     } else {
       console.log("No Compliances Found");
@@ -49,7 +49,10 @@ const Compliance = () => {
         >
           About
         </div>
-        <div className="bg-white text-black text-3xl py-2 px-4 border-2 border-black">
+        <div
+          className="bg-black text-white text-3xl py-2 px-4 cursor-pointer"
+          onClick={() => navigate(`/company-compliance/${id}`)}
+        >
           Compliance
         </div>
         <div
@@ -58,10 +61,7 @@ const Compliance = () => {
         >
           Production
         </div>
-        <div
-          className="bg-black text-white text-3xl py-2 px-4 cursor-pointer"
-          onClick={() => navigate(`/company-certificates/${id}`)}
-        >
+        <div className="bg-white text-black text-3xl py-2 px-4 border-2 border-black">
           Certificates
         </div>
         <div
@@ -72,7 +72,7 @@ const Compliance = () => {
         </div>
         <div
           className="bg-black text-white text-3xl py-2 px-4 cursor-pointer"
-          onClick={() => navigate(`/more/${id}`)}
+          onClick={() => navigate(`/more`)}
         >
           More
         </div>
@@ -85,18 +85,22 @@ const Compliance = () => {
         >
           <IoMdArrowRoundBack size={35} />
         </button>
-        <div className="text-5xl font-bold">Government Compliance</div>
+        <div className="text-5xl font-bold">Company Certificates</div>
       </div>
 
       <div className="bg-white w-full h-full">
-        {compliance ? (
-          <CarouselCompliance slides={compliance} />
-        ) : (
-          <div className="px-10 py-24 text-2xl font-medium">No Compliances</div>
-        )}
+        <div className="">
+          {certificates ? (
+            <CarouselCompliance slides={certificates} />
+          ) : (
+            <div className="px-10 py-24 text-2xl font-medium">
+              No Certificates
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Compliance;
+export default Certificates;

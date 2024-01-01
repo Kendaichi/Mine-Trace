@@ -9,6 +9,7 @@ contract ProductionStorage{
 
     struct Production {
         uint256 id;
+        string email;
         uint256 date;
         string totalOreMined;
         string month;
@@ -31,6 +32,7 @@ contract ProductionStorage{
 
 
    function addProduction(
+        string memory _email,
         string memory _totalOreMined, 
         string memory _month,
         string memory _year,
@@ -47,6 +49,7 @@ contract ProductionStorage{
         Production memory newProduction = Production({
             id: _id,
             date: block.timestamp,
+            email: _email,
             totalOreMined: _totalOreMined,
             month: _month,
             year: _year,
@@ -117,6 +120,55 @@ contract ProductionStorage{
 
         // If no matching production was found, revert the transaction
         revert("No production found with the given id and sender");
+    }
+
+    function stringsEqual(string memory _a, string memory _b) internal pure returns (bool) {
+        bytes memory a = bytes(_a);
+        bytes memory b = bytes(_b);
+            if (a.length != b.length) {
+                return false;
+            } else {
+                for (uint i = 0; i < a.length; i ++) {
+                    if (a[i] != b[i]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+    }
+
+    function getProductionsByEmail(string memory _email)   public
+        view
+        returns (ProductionDetails[] memory){
+            // Count the number of productions by the given sender
+        uint256 count = 0;
+        for (uint256 i = 0; i < productions.length; i++) {
+            if (stringsEqual(productions[i].email, _email)) {
+                count++;
+            }
+        }
+
+        // Create an array to store productions by the given sender
+        ProductionDetails[] memory productionsByEmail = new ProductionDetails[](count);
+
+
+        // Populate the array with productions by the given sender
+        uint256 index = 0;
+        for (uint256 i = 0; i < productions.length; i++) {
+            if (stringsEqual(productions[i].email, _email)) {
+                productionsByEmail[index] = ProductionDetails({
+                    id: productions[i].id,
+                    date: productions[i].date,
+                    totalOreMined: productions[i].totalOreMined,
+                    month: productions[i].month,
+                    year: productions[i].year,
+                    minedpergroups: productionGroups[productions[i].id]
+                });
+                index++;
+            }
+        }
+
+        return productionsByEmail;
     }
 
 

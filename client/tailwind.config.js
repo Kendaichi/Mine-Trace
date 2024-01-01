@@ -7,6 +7,8 @@ module.exports = {
       backgroundImage: {
         mineSite: "url('./assets/mine-site.jpg')",
         mineSite2: "url('./assets/mine-site2.jpg')",
+        alfredo: "url('./assets/alfredo.jpg')",
+        alfredo2nd: "url('./assets/ikaduhaNgaAlfredo.jpg')",
       },
     },
   },

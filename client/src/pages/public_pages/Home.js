@@ -1,4 +1,4 @@
-import Nav from "../components/nav";
+import Nav from "../../components/nav";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {

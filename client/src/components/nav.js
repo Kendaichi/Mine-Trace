@@ -34,7 +34,12 @@ const Nav = () => {
             Home
           </div>
           <div className="border border-black h-1/2 place-self-center"></div>
-          <div className="place-self-center hover:cursor-pointer">About</div>
+          <div
+            className="place-self-center hover:cursor-pointer"
+            onClick={() => navigate("/about")}
+          >
+            About
+          </div>
           <div className="border border-black h-1/2 place-self-center"></div>
           {isAuthenticated ? (
             <div
