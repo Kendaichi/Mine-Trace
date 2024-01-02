@@ -68,12 +68,17 @@ function App() {
     const auth = getAuth();
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsAuthenticated(!!user);
-
-      const currentUser = auth.currentUser;
-      const uid = currentUser?.uid;
-
-      fetchUserData(uid);
+      if (user) {
+        if (!user.emailVerified) {
+          setIsAuthenticated(false);
+        } else {
+          setIsAuthenticated(true);
+          const uid = user.uid;
+          fetchUserData(uid);
+        }
+      } else {
+        setIsAuthenticated(false);
+      }
 
       setIsChecking(false);
     });

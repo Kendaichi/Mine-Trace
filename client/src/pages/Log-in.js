@@ -1,31 +1,29 @@
 import Nav from "../components/nav";
 import { MdOutlineMail, MdKey, MdKeyboardBackspace } from "react-icons/md";
-// import { FaGoogle } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { auth, db } from "../config/firebase";
-// import { GoogleAuthProvider } from "firebase/auth";
-// import { addDoc, collection } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-
-  // signInWithPopup,
+  sendEmailVerification,
+  signOut,
 } from "firebase/auth";
-
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-
 import { GiWarPick } from "react-icons/gi";
 
 const LogIn = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
-
+  const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [pleaseVerify, setPleaseVerify] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [timer, setTimer] = useState(90);
 
   const handleSetSignup = () => setIsLogin(false);
   const handleCancelSignUp = () => setIsLogin(true);
@@ -46,6 +44,22 @@ const LogIn = () => {
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
+  };
+
+  const handleSendEmailVerification = async () => {
+    await sendEmailVerification(user);
+
+    setIsButtonDisabled(true);
+    setTimer(90);
+
+    const intervalId = setInterval(() => {
+      setTimer((timer) => timer - 1);
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(intervalId);
+      setIsButtonDisabled(false);
+    }, 90000);
   };
 
   const handleSignUp = async (e) => {
@@ -73,11 +87,23 @@ const LogIn = () => {
         await setDoc(doc(db, "users", result.user.uid), {
           email: userCredentials.email,
         });
+        setUser(result.user);
+        await sendEmailVerification(result.user);
+        setIsLoading(false);
+        setIsButtonDisabled(true);
+        setTimer(90);
+
+        const intervalId = setInterval(() => {
+          setTimer((timer) => timer - 1);
+        }, 1000);
+
+        setTimeout(() => {
+          clearInterval(intervalId);
+          setIsButtonDisabled(false);
+        }, 90000);
       }
 
-      navigate("/user-profile");
-
-      setIsLoading(false);
+      setIsVerifying(true);
     } catch (error) {
       switch (error.code) {
         case "auth/email-already-in-use":
@@ -95,11 +121,30 @@ const LogIn = () => {
     setIsLoading(true);
 
     try {
-      await signInWithEmailAndPassword(
+      const credential = await signInWithEmailAndPassword(
         auth,
         userCredentials.email,
         userCredentials.password
       );
+
+      if (credential.user && !credential.user.emailVerified) {
+        setIsLoading(false);
+        setUser(credential.user);
+        await sendEmailVerification(credential.user);
+        setPleaseVerify(true);
+        setIsButtonDisabled(true);
+        setTimer(90);
+
+        const intervalId = setInterval(() => {
+          setTimer((timer) => timer - 1);
+        }, 1000);
+
+        setTimeout(() => {
+          clearInterval(intervalId);
+          setIsButtonDisabled(false);
+        }, 90000);
+        return;
+      }
 
       navigate("/user-profile");
 
@@ -124,18 +169,6 @@ const LogIn = () => {
     }
   };
 
-  // const signInWithGoogle = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     await signInWithPopup(auth, googleProvider);
-
-  //     navigate("/user-profile");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     try {
       if (isAuthenticated) {
@@ -157,6 +190,57 @@ const LogIn = () => {
               color="#ff630f"
             />
             <div className="font-medium text-lg text-center">Loading...</div>
+          </div>
+        </div>
+      ) : null}
+
+      {isVerifying ? (
+        <div className="absolute h-[100vh] w-full bg-yellow-200 bg-opacity-70 flex justify-center z-20">
+          <div className="place-self-center flex flex-col bg-white justify-center rounded-xl h-3/4 w-3/4 py-10 px-5 gap-3">
+            <div className="text-4xl font-bold place-self-center">
+              We've sent an email for verification!!
+            </div>
+            <div className="place-self-center text-lg font-medium">
+              Please check your inbox
+            </div>
+            {isButtonDisabled ? (
+              <span className="place-self-center">
+                Resend Email in {timer} seconds
+              </span>
+            ) : (
+              <button
+                className="place-self-center shadow px-3 rounded-md bg-yellow-500 text-white"
+                onClick={handleSendEmailVerification}
+                disabled={isButtonDisabled}
+              >
+                Resend Email
+              </button>
+            )}
+          </div>
+        </div>
+      ) : null}
+      {pleaseVerify ? (
+        <div className="absolute h-[100vh] w-full bg-yellow-200 bg-opacity-70 flex justify-center z-20">
+          <div className="place-self-center flex flex-col bg-white justify-center rounded-xl h-3/4 w-3/4 py-10 px-5 gap-3">
+            <div className="text-4xl font-bold place-self-center">
+              Account not verified! Please verify first your email.
+            </div>
+            <div className="place-self-center text-lg font-medium">
+              We've sent email verification
+            </div>
+            {isButtonDisabled ? (
+              <span className="place-self-center">
+                Resend Email in {timer} seconds
+              </span>
+            ) : (
+              <button
+                className="place-self-center shadow px-3 rounded-md bg-yellow-500 text-white"
+                onClick={handleSendEmailVerification}
+                disabled={isButtonDisabled}
+              >
+                Resend Email
+              </button>
+            )}
           </div>
         </div>
       ) : null}
