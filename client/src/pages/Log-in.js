@@ -7,7 +7,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
-  signOut,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -248,16 +247,16 @@ const LogIn = () => {
         <Nav />
       </div>
       <div className="border-black flex h-full">
-        <div className="relative w-1/2 bg-mineSite bg-cover">
+        <div className="relative hidden lg:block md:w-1/2 bg-mineSite bg-cover">
           <div className="absolute bg-black bg-opacity-50 h-full w-full px-10 py-36 flex flex-col justify-center">
             <div className="text-5xl font-bold text-white leading-normal place-self-center">
               MineTrace: Ethical Mining Transparency Platform
             </div>
           </div>
         </div>
-        <div className="relative w-1/2 bg-mineSite2 bg-cover">
+        <div className="relative w-full lg:w-1/2 bg-mineSite2 bg-cover">
           <div className="absolute h-full w-full bg-black bg-opacity-20 flex justify-center">
-            <div className="relative w-3/4 h-3/4 place-self-center bg-gray-400 rounded-xl bg-opacity-50 px-5 py-10">
+            <div className="relative w-3/4 h-3/4 place-self-center bg-gray-400 rounded-xl bg-opacity-50 backdrop-blur-sm px-5 py-10">
               <div className="text-white text-3xl font-semibold text-center mb-10">
                 {isLogin ? "~Log In~" : "~Sign Up~"}
               </div>

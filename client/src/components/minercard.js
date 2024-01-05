@@ -5,7 +5,7 @@ export default function MinerCard({ miner }) {
   const navigate = useNavigate();
   return (
     <div
-      className="bg-white bg-opacity-30 shadow-md h-72 w-56 rounded-lg flex flex-col py-5 px-1 cursor-pointer"
+      className="bg-white bg-opacity-30 shadow-md h-72 w-56 m-auto rounded-lg flex flex-col py-5 px-1 cursor-pointer"
       onClick={() => navigate(`/company-profile/${miner.id}`)}
     >
       {miner.logoURL ? (

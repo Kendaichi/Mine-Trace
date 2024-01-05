@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { getAuth } from "firebase/auth";
+import { FaTrash } from "react-icons/fa";
 
 export default function UserMineSite() {
   const [mainCoordinates, setMainCoordinates] = useState({ lat: "", long: "" });
@@ -85,7 +86,7 @@ export default function UserMineSite() {
   }, []);
 
   return (
-    <div className="w-1/2 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-10">
+    <div className="w-3/4 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-10">
       <div className="text-2xl font-bold">Location</div>
       <form className="h-full flex flex-col gap-10 py-2" onSubmit={handleSave}>
         <label className="font-medium -mt-3">Main Coordinates:</label>
@@ -139,7 +140,7 @@ export default function UserMineSite() {
 
               {editing ? (
                 <button onClick={(e) => handleRemovePolygon(e, index)}>
-                  Delete
+                  <FaTrash color="red" />
                 </button>
               ) : null}
             </div>

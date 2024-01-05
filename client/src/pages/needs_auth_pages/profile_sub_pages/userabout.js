@@ -57,7 +57,7 @@ export default function UserAbout() {
   }, []);
 
   return (
-    <div className="w-1/2 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-10">
+    <div className="w-3/4 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-10">
       <div className="text-2xl font-bold">About</div>
 
       <div className="-mb-8 -mt-5 flex justify-end gap-2">

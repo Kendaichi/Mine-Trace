@@ -191,7 +191,7 @@ export default function UserProduction() {
             from: account,
           });
 
-        // console.log(result);
+        console.log(result);
 
         // Extract months and totalOreMined from the result
         const months = result.map((production) => production.month);
@@ -231,7 +231,7 @@ export default function UserProduction() {
   }
 
   return (
-    <div className="w-3/4 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-10">
+    <div className="w-full md:w-3/4 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-10">
       {/* Additional Details */}
 
       <Routes>
@@ -369,9 +369,9 @@ export default function UserProduction() {
           </div>
         </div>
       ) : (
-        <div className="w-full flex h-full gap-2">
+        <div className="w-full flex flex-col md:flex-row h-full overflow-auto gap-2">
           {/* Table and graph */}
-          <div className="w-1/2 h-full px-2 flex flex-col">
+          <div className="w-full md:w-1/2 h-full px-2 flex flex-col">
             <div className="overflow-y-auto max-h-[calc(100vh-22rem)] w-full">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-yellow-100">
@@ -417,7 +417,7 @@ export default function UserProduction() {
               </table>
             </div>
           </div>
-          <div className="border w-1/2 h-full px-2">
+          <div className="border w-full md:w-1/2 h-full px-2">
             <Bar
               data={goldData}
               // height={400}

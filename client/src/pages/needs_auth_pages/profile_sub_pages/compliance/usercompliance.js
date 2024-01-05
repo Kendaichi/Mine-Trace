@@ -83,7 +83,7 @@ export default function UserCompliance() {
   }, []);
 
   return (
-    <div className="w-1/2 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-7 overflow-auto">
+    <div className="w-3/4 h-full bg-white bg-opacity-40 place-self-center rounded shadow px-5 py-2 flex flex-col gap-7 overflow-auto">
       {/* Loading Scree */}
 
       {isLoading ? (
@@ -118,10 +118,10 @@ export default function UserCompliance() {
         <thead className="text-xs text-gray-700 uppercase bg-yellow-100">
           <tr>
             <th scope="col" className="px-2 py-3"></th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 hidden md:block">
               Document Image
             </th>
-            <th scope="col" className="w-1/2 px-6 py-3">
+            <th scope="col" className="px-6 py-3">
               Document Name
             </th>
             <th scope="col" className="px-2 py-3"></th>
@@ -135,7 +135,7 @@ export default function UserCompliance() {
               .map((file, index) => (
                 <tr className="bg-white border-b">
                   <td className="px-3 py-4">{index + 1}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 hidden md:block">
                     {file.url && file.url.length > 0 ? (
                       <img
                         src={file.url}
@@ -145,6 +145,7 @@ export default function UserCompliance() {
                       />
                     ) : null}
                   </td>
+
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 overflow-hidden whitespace-nowrap text-ellipsis"

@@ -2,13 +2,15 @@ import Nav from "../../components/nav";
 
 export default function About() {
   return (
-    <div className="h-[100vh] flex flex-col">
+    <div className="h-auto flex flex-col">
       <div className="h-auto">
         <Nav />
       </div>
       <div className="flex h-full justify-around py-10 flex-col gap-5">
-        <div className="text-6xl font-bold place-self-center">About Us</div>
-        <div className="w-3/4 place-self-center text-justify">
+        <div className="text-5xl md:text-6xl font-bold place-self-center">
+          About Us
+        </div>
+        <div className="w-3/4 place-self-center text-justify text-sm md:text-base">
           Welcome to <span className="font-bold text-lg">MineTrace</span> a
           revolutionary initiative conceived by two visionary students from
           Caraga State University. At MineTrace, we embark on a groundbreaking
@@ -32,10 +34,12 @@ export default function About() {
           of blockchain unlocks the true potential of transparent and
           sustainable ore production at MineTrace.
         </div>
-        <div className="place-self-center  flex flex-col w-full">
-          <div className="text-center text-4xl font-bold">Meet The Team</div>
-          <div className="w-3/4 place-self-center flex justify-center mt-4">
-            <div className="flex w-1/2 justify-center">
+        <div className="place-self-center  flex flex-col w-full gap-3">
+          <div className="text-center text-2xl md:text-4xl font-bold">
+            Meet The Team
+          </div>
+          <div className="w-3/4 place-self-center flex flex-col lg:flex-row justify-center gap-5">
+            <div className="flex w-full lg:w-1/2 justify-center gap-3">
               <div className="flex flex-col w-3/4 text-right font-medium py-2">
                 <div>Alfredo Jr. F. Valledor</div>
                 <div>BS Mining Engineering</div>
@@ -43,7 +47,7 @@ export default function About() {
               </div>
               <div className="w-20 h-20 m-auto rounded-full border shadow-md flex justify-center bg-alfredo bg-cover "></div>
             </div>
-            <div className="flex w-1/2 justify-center">
+            <div className="flex w-full lg:w-1/2 justify-center gap-3">
               <div className="w-20 h-20 m-auto rounded-full border shadow-md flex justify-center bg-alfredo2nd bg-cover"></div>
               <div className="flex flex-col w-3/4 text-left font-medium py-2">
                 <div>Rey P. Manzo</div>

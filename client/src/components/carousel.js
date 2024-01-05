@@ -15,15 +15,15 @@ export default function CarouselCompliance({ slides }) {
             key={`img => ${index}`}
             className="absolute w-full h-full"
           >
-            <div className="flex justify-center">
-              <div className="place-self-center h-full">
+            <div className="flex flex-col lg:flex-row justify-center">
+              <div className="place-self-center p-5">
                 <img
                   src={slide.documentURL}
                   alt="img"
                   className="object-contain"
                 />
               </div>
-              <div className=" w-full px-5 py-10 text-3xl font-bold">
+              <div className="w-full px-5 py-10 text-3xl font-bold">
                 {slide.documentTitle}
                 <br />
                 <br />

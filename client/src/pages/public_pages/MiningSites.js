@@ -53,9 +53,9 @@ const MiningSites = () => {
       <div className="h-auto">
         <Nav />
       </div>
-      <div className="bg-yellow-50 h-full flex flex-col justify-center py-11 px-36">
-        <div className="h-full w-full place-self-center flex flex-col gap-2">
-          <div className="place-self-end w-1/4 h-14 flex flex-col justify-center px-3 rounded bg-white">
+      <div className="bg-yellow-50 h-full flex flex-col justify-center py-10 px-10">
+        <div className="h-full w-full place-self-center flex flex-col gap-2 justify-center">
+          <div className="place-self-start w-auto h-14 flex flex-col justify-center px-3 rounded bg-white">
             <div className="flex gap-2 h-full justify-center">
               <IoSearch size={20} className="place-self-center" />
               <input
@@ -68,7 +68,7 @@ const MiningSites = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 px-5 py-5 h-full w-full md:grid-cols-5 overflow-x-hidden gap-5 custom-scrollbar">
+          <div className="grid grid-cols-1 place-self-center px-5 py-5 h-full w-full md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-x-hidden gap-5 custom-scrollbar">
             {miners &&
               miners.map((miner, index) => (
                 <MinerCard key={index} miner={miner} />

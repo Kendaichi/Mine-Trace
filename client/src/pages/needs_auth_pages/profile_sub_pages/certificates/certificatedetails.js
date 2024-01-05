@@ -174,8 +174,8 @@ export default function CertificateDetails() {
           //   onSubmit={(e) => handleUpdateData(e)}
           onSubmit={(e) => e.preventDefault()}
         >
-          <div className="flex h-full">
-            <div className="w-1/2 flex justify-center flex-col">
+          <div className="flex flex-col md:flex-row gap-4 h-auto overflow-auto">
+            <div className="w-1/2 flex justify-center flex-col place-self-center">
               <input
                 type="file"
                 hidden
@@ -189,8 +189,8 @@ export default function CertificateDetails() {
                 <img
                   src={file.url}
                   alt="Uploaded_image"
-                  width={350}
-                  height={350}
+                  width={300}
+                  height={300}
                   className="place-self-center"
                 />
               )}
@@ -204,7 +204,7 @@ export default function CertificateDetails() {
                 </button>
               ) : null}
             </div>
-            <div className="w-1/2 flex flex-col gap-10">
+            <div className="w-full md:w-1/2 flex flex-col gap-10">
               <div>
                 <label
                   htmlFor="title"

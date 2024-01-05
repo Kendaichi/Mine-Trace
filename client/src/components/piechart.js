@@ -7,7 +7,7 @@ export default function PieChart({ chartData }) {
     <Pie
       data={chartData}
       // height={400}
-      width={700}
+      // width={700}
       options={{
         maintainAspectRatio: false,
         responsive: true,
