@@ -1,20 +1,22 @@
-import BarChart from "../../components/barchart";
-import PieChart from "../../components/piechart";
-import "chart.js/auto";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useEffect, useState } from "react";
-import Web3 from "web3";
-import ProductionStorage from "../../contracts/ProductionStorage.json";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import LoadingScreen from "../../components/loadingScreen";
 import { IoClose, IoNewspaper } from "react-icons/io5";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import { FaChartPie } from "react-icons/fa6";
 import { RiMapPin2Fill } from "react-icons/ri";
 import { TiThMenu } from "react-icons/ti";
 import { MdMore } from "react-icons/md";
+import Web3 from "web3";
+
+import "chart.js/auto";
+
+import BarChart from "../../components/barchart";
+import PieChart from "../../components/piechart";
+import ProductionStorage from "../../contracts/ProductionStorage.json";
+import LoadingScreen from "../../components/loadingScreen";
 
 const Production = () => {
   const [contractInstance, setContractInstance] = useState(null);

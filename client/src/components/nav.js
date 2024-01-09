@@ -8,6 +8,7 @@ import { RiLoginCircleFill } from "react-icons/ri";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import { IoHome } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
+import { AiOutlineBlock } from "react-icons/ai";
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Nav = () => {
           MineTrace
         </div>
 
-        <div className="flex justify-end w-full md:hidden">
+        <div className="flex justify-end w-full lg:hidden">
           <div className="place-self-center">
             <button onClick={() => setIsDrawer(true)}>
               <TiThMenu size={25} />
@@ -68,6 +69,17 @@ const Nav = () => {
                     className="place-self-center"
                   />
                   <div className="text-lg font-bold">Home</div>
+                </div>
+                <div
+                  className="flex gap-2 justify-start"
+                  onClick={() => navigate("/public-block")}
+                >
+                  <AiOutlineBlock
+                    size={25}
+                    color="gray"
+                    className="place-self-center"
+                  />
+                  <div className="text-lg font-bold">Blocks</div>
                 </div>
                 {isAuthenticated ? (
                   <div
@@ -112,12 +124,19 @@ const Nav = () => {
           </>
         ) : null}
 
-        <div className="hidden md:flex justify-end w-full gap-16 pr-6 text-xl">
+        <div className="hidden lg:flex justify-end w-full gap-16 pr-6 text-xl">
           <div
             className="place-self-center hover:cursor-pointer"
             onClick={() => navigate("/")}
           >
             Home
+          </div>
+          <div className="border border-black h-1/2 place-self-center"></div>
+          <div
+            className="place-self-center hover:cursor-pointer"
+            onClick={() => navigate("/public-block")}
+          >
+            Blocks
           </div>
           <div className="border border-black h-1/2 place-self-center"></div>
           <div

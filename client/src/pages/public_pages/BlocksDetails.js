@@ -2,10 +2,10 @@ import { Pie } from "react-chartjs-2";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import QrCodeComponent from "../../../../components/qrcode";
+import QrCodeComponent from "../../components/qrcode";
 import { IoClose } from "react-icons/io5";
 
-export default function ProductionDetails({ account, contractInstance }) {
+export default function BlocksDetails({ account, contractInstance }) {
   const navigate = useNavigate();
   const { index } = useParams();
   const [production, setProduction] = useState(null);
@@ -39,14 +39,16 @@ export default function ProductionDetails({ account, contractInstance }) {
         // Check if contractInstance is not null
         if (contractInstance) {
           const result = await contractInstance.methods
-            .getProductionByIdAndSender(index, account)
+            .getProductionById(index)
             .call({
               from: account,
             });
 
+          console.log(result);
+
           // Update production state
           setProduction(result);
-          //   console.log(result);
+
           const groups = result.minedpergroups.map((group) => group.groupName);
           const oreMined = result.minedpergroups.map((group) => group.oreMined);
           //   console.log(groups, oreMined);
@@ -93,6 +95,8 @@ export default function ProductionDetails({ account, contractInstance }) {
     return `${month}-${day}-${year}`;
   }
 
+  console.log(index);
+
   return (
     <div className="absolute bg-black w-full h-full left-0 top-0 bg-opacity-30 flex justify-center">
       <div className="place-self-center w-3/4 h-3/4 bg-gray-50 rounded-lg flex flex-col px-5 py-3 gap-3 relative">
@@ -106,7 +110,7 @@ export default function ProductionDetails({ account, contractInstance }) {
 
             <div className="place-self-center w-full h-full flex justify-center ">
               <div className="place-self-center">
-                <QrCodeComponent id={index} />
+                <QrCodeComponent index={index} />
               </div>
             </div>
           </div>

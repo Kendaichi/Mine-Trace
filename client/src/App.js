@@ -19,6 +19,7 @@ import MiningSites from "./pages/public_pages/MiningSites";
 import More from "./pages/public_pages/More";
 import NotFound from "./pages/NotFound";
 import About from "./pages/public_pages/About";
+import PublicBlocks from "./pages/public_pages/PublicBlocks";
 
 function App() {
   const location = useLocation();
@@ -107,6 +108,7 @@ function App() {
           <Route path="/miningsites" element={<MiningSites />} />
           <Route path="/more/:id" element={<More />} />
           <Route path="/about" element={<About />} />
+          <Route path="/public-block/*" element={<PublicBlocks />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </UserContext.Provider>

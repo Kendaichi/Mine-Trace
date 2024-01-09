@@ -23,11 +23,17 @@ const MiningSites = () => {
         ...doc.data(),
       }));
 
+      // console.log(searchQuery);
+
       if (searchQuery) {
         minersSnapshot = minersSnapshot.filter(
           (miner) =>
-            miner.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            miner.email.toLowerCase().includes(searchQuery.toLowerCase())
+            (miner.name ? miner.name.toLowerCase() : "").includes(
+              searchQuery.toLowerCase()
+            ) ||
+            (miner.email ? miner.email.toLowerCase() : "").includes(
+              searchQuery.toLowerCase()
+            )
         );
       }
 

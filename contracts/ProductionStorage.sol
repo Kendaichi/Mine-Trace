@@ -27,6 +27,7 @@ contract ProductionStorage{
         string totalOreMined;
         string month;
         string year;
+        address sender;
         MinedPerGroup[] minedpergroups;
     }
 
@@ -59,6 +60,51 @@ contract ProductionStorage{
         productions.push(newProduction);
         }
 
+    function getAllProductions() public view returns (ProductionDetails[] memory) {
+        // Create an array to store all productions
+        ProductionDetails[] memory allProductions = new ProductionDetails[](productions.length);
+
+        // Populate the array with all productions
+        for (uint256 i = 0; i < productions.length; i++) {
+            allProductions[i] = ProductionDetails({
+                id: productions[i].id,
+                date: productions[i].date,
+                totalOreMined: productions[i].totalOreMined,
+                month: productions[i].month,
+                year: productions[i].year,
+                sender: productions[i].sender,
+                minedpergroups: productionGroups[productions[i].id]
+            });
+        }
+
+    return allProductions;
+}
+
+    function getProductionById(uint256 _id)
+        public
+        view
+        returns (ProductionDetails memory)
+    {
+        // Loop through all productions
+        for (uint256 i = 0; i < productions.length; i++) {
+            // Check if the id and sender match the provided id and sender
+            if (productions[i].id == _id) {
+                // Return the matching production
+                return ProductionDetails({
+                    id: productions[i].id,
+                    date: productions[i].date,
+                    totalOreMined: productions[i].totalOreMined,
+                    month: productions[i].month,
+                    year: productions[i].year,
+                    sender: productions[i].sender,
+                    minedpergroups: productionGroups[productions[i].id]
+                });
+            }
+        }
+
+        // If no matching production was found, revert the transaction
+        revert("No production found with the given id and sender");
+    }
 
 
     function getProductionsBySender(address _sender)
@@ -87,6 +133,7 @@ contract ProductionStorage{
                     totalOreMined: productions[i].totalOreMined,
                     month: productions[i].month,
                     year: productions[i].year,
+                    sender: productions[i].sender,
                     minedpergroups: productionGroups[productions[i].id]
                 });
                 index++;
@@ -113,6 +160,7 @@ contract ProductionStorage{
                     totalOreMined: productions[i].totalOreMined,
                     month: productions[i].month,
                     year: productions[i].year,
+                    sender: productions[i].sender,
                     minedpergroups: productionGroups[productions[i].id]
                 });
             }
@@ -162,6 +210,7 @@ contract ProductionStorage{
                     totalOreMined: productions[i].totalOreMined,
                     month: productions[i].month,
                     year: productions[i].year,
+                    sender: productions[i].sender,
                     minedpergroups: productionGroups[productions[i].id]
                 });
                 index++;
