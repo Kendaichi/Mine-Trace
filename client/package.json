@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@metamask/sdk": "^0.14.1",
-    "@metamask/sdk-react": "^0.14.1",
-    "@testing-library/jest-dom": "^5.17.0",
+    "@metamask/sdk-react": "^0.16.0",
+    "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "chart.js": "^4.4.1",
@@ -23,7 +23,7 @@
     "react-spinners": "^0.13.8",
     "swiper": "^11.0.5",
     "web-vitals": "^2.1.4",
-    "web3": "^4.3.0"
+    "web3": "^4.12.0"
   },
   "scripts": {
     "start": "react-scripts start",
